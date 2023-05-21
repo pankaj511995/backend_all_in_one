@@ -2,6 +2,7 @@ const express =require('express')
 require('dotenv').config()
 const bodyparser=require('body-parser')
 const cors=require('cors')
+const mongoose=require('mongoose')
 const  sequelize=require('./database/sequelize')
 // const userdata=require('./Rourer/Expense_router/userRout')
 // const allExpense=require('./Rourer/Expense_router/expenseRout')
@@ -10,7 +11,7 @@ const app=express()
 app.use(cors())  
 app.use(bodyparser.json({extended :false}))
 
-
+ 
 // app.use('/user',userdata) 
 // app.use('/expense',allExpense)
 // app.use('/premium',allpremiumfeature)
@@ -36,10 +37,13 @@ Download.belongsTo(User)
 
 
 sequelize.sync()
-.then(e=>{
+.then(e=>{  
+return mongoose.connect(process.env.MONGODB_URL)
+
+.then((res)=>{
     console.log('connected')
     app.listen(process.env.PORT)
-}
-    )
+})
+})
 .catch(e=>console.log('got error',e.message))
       
