@@ -4,17 +4,17 @@ const bodyparser=require('body-parser')
 const cors=require('cors')
 const mongoose=require('mongoose')
 const  sequelize=require('./database/sequelize')
-// const userdata=require('./Rourer/Expense_router/userRout')
-// const allExpense=require('./Rourer/Expense_router/expenseRout')
-// const allpremiumfeature=require('./Rourer/Expense_router/prem')
+const userdata=require('./router/user')
+const allExpense=require('./router/Exp_expense')
+const purchase=require('./router/purchase')
 const app=express()
 app.use(cors())  
 app.use(bodyparser.json({extended :false}))
 
  
-// app.use('/user',userdata) 
-// app.use('/expense',allExpense)
-// app.use('/premium',allpremiumfeature)
+app.use('/user',userdata) 
+app.use('/expense',allExpense)
+app.use('/purchase',purchase)
 
 
 
@@ -46,4 +46,4 @@ return mongoose.connect(process.env.MONGODB_URL)
 })
 })
 .catch(e=>console.log('got error',e.message))
-      
+       
