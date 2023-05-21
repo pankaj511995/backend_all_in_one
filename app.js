@@ -18,11 +18,11 @@ app.use(bodyparser.json({extended :false}))
 
 
 //table creation 
-const Expense=require('')
-const Order=require('.')
-const forgotPassword=require('.')
-const Download=require('')
-const User=require('')
+const Expense=require('./models/expense')
+const Order=require('./models/orders')
+const forgotPassword=require('./models/forgotPassword')
+const Download=require('./models/downloads')
+const User=require('./models/user')
 
 
 User.hasMany(Expense)
