@@ -1,7 +1,7 @@
 
-const serviceRepet=require('../service/repete')
-const sequelize =require('../database/sequelize')
-const Expense=require('../models/expense')
+const serviceRepet=require('../../service/repete')
+const sequelize =require('../../database/sequelize')
+const Expense=require('../../models/ExpenseTracker/expense')
 exports.addExpenseAmount=async(req,res)=>{
     const t = await sequelize.transaction();
     try{ 

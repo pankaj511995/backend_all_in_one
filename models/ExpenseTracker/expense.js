@@ -1,5 +1,5 @@
 const Sequelize=require('sequelize')
-const sequelize=require('../database/sequelize')
+const sequelize=require('../../database/sequelize')
 module.exports=sequelize.define('Expense',{
     id:{
         type:Sequelize.INTEGER,

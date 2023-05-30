@@ -5,8 +5,10 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 const  sequelize=require('./database/sequelize')
 const userdata=require('./router/user')
-const allExpense=require('./router/Exp_expense')
+const allExpense=require('./router/ExpenseTracker/expense')
 const purchase=require('./router/purchase')
+const EcommerceCart=require('./router/Ecommerce/Cart')
+const EcommerceProduct=require('./router/Ecommerce/Product')
 const app=express()
 app.use(cors())  
 app.use(bodyparser.json({extended :false}))
@@ -15,15 +17,15 @@ app.use(bodyparser.json({extended :false}))
 app.use('/user',userdata) 
 app.use('/expense',allExpense)
 app.use('/purchase',purchase)
-
-
+ app.use('/cart',EcommerceCart)
+app.use('/product',EcommerceProduct)
 
 //table creation 
-const Expense=require('./models/expense')
+const Expense=require('./models/ExpenseTracker/expense')
 const Order=require('./models/orders')
 const forgotPassword=require('./models/forgotPassword')
-const Download=require('./models/downloads')
-const User=require('./models/user')
+const Download=require('./models/ExpenseTracker/downloads')
+const User=require('./models/SQLuser')
 
 
 User.hasMany(Expense)
@@ -36,7 +38,7 @@ User.hasMany(Download)
 Download.belongsTo(User)
 
 
-sequelize.sync()
+sequelize.sync({force:true})
 .then(e=>{  
 return mongoose.connect(process.env.MONGODB_URL)
 

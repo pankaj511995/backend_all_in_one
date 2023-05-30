@@ -1,35 +1,70 @@
 const jwt=require('jsonwebtoken')
 
 const bcrypt=require('bcrypt')
-
-exports.validate=(res,message,one,two,three)=>{
-    return new Promise((resolve,reject)=>{
-        if(one==='' ||two==='' || three===''){
-             return res.status(400).json({message:message})
-        }else{
-            resolve('success')
-        }
-     })}
+exports.ValidateName=(str)=>{
+    for(let i=0;i<str.length;i++){
+      if(!/[a-zA-Z]/.test(str[i])){
+        return false
+      }   
+    }
+    return true
+  }
+  exports.ValidateEmail=(str)=>{
+    for(let i=0;i<str.length;i++){
+      if(/['@','.' ]/.test(str[i])){
+        continue
+      }
+      if(!/[a-zA-Z0-9]/.test(str[i])){
+        return false
+      }
+      
+    }
+    return true
+  }
+  exports.ValidatePassword=(str)=>{
+    for(let i=0;i<str.length;i++){
+      if(/['@' ]/.test(str[i])){
+        continue
+      }
+      if(!/[a-zA-Z1-9]/.test(str[i])){
+        return false
+      }
+      
+    }
+    return true
+  }
+  exports.ValidatePhone=(str)=>{
+    if(str.length!==10)return false
+    for(let i=0;i<str.length;i++){
+      if(!/[0-9]/.test(str[i])){
+        return false
+      }   
+    }
+    return true
+  }
  exports.error=(res,message,consoleError)=>{
     res.status(400).json({message:message})
         console.log(consoleError)   
  }
 exports.premium=(res,isPremium)=>{
-    return new Promise((resolve,reject)=>{
+  
         if(isPremium===false) {
             return res.status(400).json({message:'join premium to enjoy this feature'})
         }else{
-            resolve('yes he is premium')
+           return true
         }        
-    })
+ 
 }
 
-exports.generateToken=(id,isPremium)=>jwt.sign({id,isPremium},process.env.JWT_TOKEN)
+exports.generateToken=(id,_id,user,seller)=>{
+    return jwt.sign({SqlUser:id,MongoUser:_id,userLogin:user,sellersLogin:seller},process.env.JWT_TOKEN)
+}
+
+
+
 exports.verify=(token,secrate)=>{
     return new Promise((resolve,reject)=>{
         jwt.verify(token,secrate,(err,token)=>{
-           
-            console.log(token,'token i s') 
             if(token){
                
                resolve(token)

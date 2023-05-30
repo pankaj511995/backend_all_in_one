@@ -1,6 +1,6 @@
-const User=require('../models/user');
-const {S3BucketUpload}=require('../service/s3bucket')
-const {premium,error}=require('../service/repete')
+const User=require('../../models/SQLuser');
+const {S3BucketUpload}=require('../../service/s3bucket')
+const {premium,error}=require('../../service/repete')
 exports.leaderboardOfAll=async(req,res)=>{
     try{
         await premium(req.user.isPremium)

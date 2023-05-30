@@ -1,9 +1,9 @@
 const uuid=require('uuid')
-const User=require('../models/user')
+const User=require('../models/SQLuser')
 const sequelize=require('../database/sequelize')
 const forgotPassword=require('../models/forgotPassword')
 const {sendEmail}=require('../service/email')
-const {error,bcryptpassword}=require('../service/repete')
+const {error,bcryptpassword,ValidatePassword}=require('../service/repete')
 
 exports.forgotPasswordLink=async(req,res)=>{
     const t = await sequelize.transaction();
@@ -49,3 +49,17 @@ exports.updatePassword=async(req,res)=>{
         error(res,'something went wrong','error while updating reset password')
     }
 } 
+exports.updateNeqPassword=async(req,res)=>{
+    try{
+        const {password}=req.body
+        console.log(req.body)
+        if(!ValidatePassword(password)){
+            return res.status(400).json({message:'enter correct password '})
+        }
+         const hash=await  bcryptpassword(password)
+      await req.user.update({password:hash})
+               res.status(200).send({message:'password has been changed '})
+    }catch(err){
+        error(res,'something went wrong','error while updating reset password')
+    }
+}

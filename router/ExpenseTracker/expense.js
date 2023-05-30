@@ -1,8 +1,8 @@
 const express=require('express')
-const controller=require('../controller/Exp_Expense')
-const {authenticate}=require('../authentication/authenticate')
+const controller=require('../../controller/ExpenseTracker/Expense')
+const {authenticate}=require('../../authentication/authenticate')
 
-const{downloadAllExpenseLink,leaderboardOfAll}=require('../controller/Exp_premium')
+const{downloadAllExpenseLink,leaderboardOfAll}=require('../../controller/ExpenseTracker/premium')
 
 const router=express.Router()
 
