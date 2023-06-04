@@ -1,9 +1,9 @@
 const {Router}=require('express')
-const {authenticateMogo}=require('../../authentication/authenticate')
+const {authenticate}=require('../../authentication/authenticate')
 const {addProductMongo,getProduct}=require('../../controller/Ecommerce/Product')
 const router=Router()
 
-router.post('/addproduct',authenticateMogo,addProductMongo)
+router.post('/addproduct',authenticate,addProductMongo)
 
-router.get('/getproduct',authenticateMogo,getProduct)
+router.get('/getproduct',authenticate,getProduct)
 module.exports=router

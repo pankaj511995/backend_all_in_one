@@ -1,24 +1,23 @@
 const uuid=require('uuid')
-const User=require('../models/SQLuser')
-const sequelize=require('../database/sequelize')
+
 const forgotPassword=require('../models/forgotPassword')
 const {sendEmail}=require('../service/email')
 const {error,bcryptpassword,ValidatePassword}=require('../service/repete')
 
 exports.forgotPasswordLink=async(req,res)=>{
-    const t = await sequelize.transaction();
+    // const t = await sequelize.transaction();
     try{
-        const uid=uuid.v4()   
-    const user=await User.findOne({where:{email:req.body.email}})
-    if(user){
-            const p1=sendEmail(req.body.email,uid)
-           const p2= user.createForgot({id:uid,isActive:true},{transaction:t})
-           await Promise.all([p1,p2])//if may be email fail to send then rollback
-           await t.commit()
+    //     const uid=uuid.v4()   
+    // const user=await User.findOne({where:{email:req.body.email}})
+    // if(user){
+    //         const p1=sendEmail(req.body.email,uid)
+    //        const p2= user.createForgot({id:uid,isActive:true},{transaction:t})
+    //        await Promise.all([p1,p2])//if may be email fail to send then rollback
+    //        await t.commit()
         res.status(200).json({message:'sent email'})
-    }else throw new Error()
+    // }else throw new Error()
 }catch(err){
-    await t.rollback()
+    // await t.rollback()
     error(res,'something went wrong','error while sending forgot email link')
 } 
 }

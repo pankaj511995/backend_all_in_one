@@ -9,7 +9,10 @@ const user=new mongoose.Schema({
         type:String,
         require:true,
         unique:true
-    }
+    },
+    phone:String,
+    password:String
     ,cart:Array
+    
 })
 module.exports=mongoose.model('user',user)

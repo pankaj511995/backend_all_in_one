@@ -1,6 +1,6 @@
 
-const User=require('../models/SQLuser')
-const serviceRepet=require('../service/repete')
+
+
 const {ValidateName,error,compair,ValidateEmail,bcryptpassword,
     ValidatePassword,generateToken,ValidatePhone}=require('../service/repete')
 const MUser=require('../models/MongoUser')
@@ -11,28 +11,28 @@ exports.signupUser=async(req,res)=>{
             return res.status(400).json({message:'please fill correctly'})
          }
          const hash=await bcryptpassword(password)
-        const p1= User.create({name:name,email:email,password:hash,phone:phone.toString()})
-        const p2=MUser.create({name:name,email:email})
-        await Promise.all([p1,p2])
+        await MUser.create({name:name,email:email,password:hash,phone:phone.toString()})
+         
          res.status(200).json({status:true})
 
     }catch(err){ 
-        console.log(err.message,'888888888888888888888888888888')
         error(res,'email already exist','error while signup')
     }
 }
 exports.signinUser=async(req,res)=>{
     try{
     const {email,password}=req.body
+    const admin=req.body.admin
     if(!ValidateEmail(email)||!ValidatePassword(password)){
         return res.status(400).json({message:'please fill correctly'})
      }
-        const SQLuser=await  User.findOne({where:{email:email}})
-       await compair(res,password,SQLuser.password)
-       
-        const mongouser=await MUser.findOne({email:email})
-
-        res.status(200).json({token:generateToken(SQLuser.id,mongouser._id,true,false)})
+        const user=await  MUser.findOne({email:email})
+        console.log(user)
+       await compair(res,password,user.password)
+       if(req.body.admin===true){
+       return  res.status(200).json({token:generateToken(user._id,false,true)})
+       }
+        res.status(200).json({token:generateToken(user._id,true,false)})
 
 }catch(e){
     

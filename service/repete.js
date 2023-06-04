@@ -46,18 +46,10 @@ exports.ValidateName=(str)=>{
     res.status(400).json({message:message})
         console.log(consoleError)   
  }
-exports.premium=(res,isPremium)=>{
-  
-        if(isPremium===false) {
-            return res.status(400).json({message:'join premium to enjoy this feature'})
-        }else{
-           return true
-        }        
- 
-}
 
-exports.generateToken=(id,_id,user,seller)=>{
-    return jwt.sign({SqlUser:id,MongoUser:_id,userLogin:user,sellersLogin:seller},process.env.JWT_TOKEN)
+
+exports.generateToken=(_id,user,seller)=>{
+    return jwt.sign({MongoUser:_id,userLogin:user,sellersLogin:seller},process.env.JWT_TOKEN)
 }
 
 

@@ -1,9 +1,10 @@
 const {Router}=require('express')
-const {authenticateMogo}=require('../../authentication/authenticate')
+const {authenticate}=require('../../authentication/authenticate')
 const {addToCart, getAllCart,removeFromCart}=require('../../controller/Ecommerce/Cart')
 const router=Router()
 
-router.post('/addtocart',authenticateMogo,addToCart)
-router.get('/getallcart',authenticateMogo,getAllCart)
-router.post('/removecart',authenticateMogo,removeFromCart)
+router.post('/addtocart',authenticate,addToCart)
+router.get('/getallcart',authenticate,getAllCart)
+router.post('/removecart',authenticate,removeFromCart)
+
 module.exports=router

@@ -1,5 +1,4 @@
-const Order=require('../models/orders')
-const sequelize=require('../database/sequelize')
+
 const {createOrder}=require('../service/payment')
 const {error,generateToken}=require('../service/repete')
 exports.createOrderId=async(req,res)=>{
