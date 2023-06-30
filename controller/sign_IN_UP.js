@@ -30,9 +30,9 @@ exports.signinUser=async(req,res)=>{
         console.log(user)
        await compair(res,password,user.password)
        if(req.body.admin===true){
-       return  res.status(200).json({token:generateToken(user._id,false,true)})
+       return  res.status(200).json({token:generateToken(user._id,false,user.isPreamium)})
        }
-        res.status(200).json({token:generateToken(user._id,true,false)})
+        res.status(200).json({token:generateToken(user._id,true,user.isPreamium)})
 
 }catch(e){
     

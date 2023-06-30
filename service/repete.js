@@ -48,8 +48,8 @@ exports.ValidateName=(str)=>{
  }
 
 
-exports.generateToken=(_id,user,seller)=>{
-    return jwt.sign({MongoUser:_id,userLogin:user,sellersLogin:seller},process.env.JWT_TOKEN)
+exports.generateToken=(_id,user,isPreamium)=>{
+    return jwt.sign({MongoUser:_id,userLogin:user,isPreamium:isPreamium},process.env.JWT_TOKEN)
 }
 
 

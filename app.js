@@ -5,8 +5,6 @@ const cors=require('cors')
 const mongoose=require('mongoose')
 const userdata=require('./router/user')
 const purchase=require('./router/purchase')
-const EcommerceCart=require('./router/Ecommerce/Cart')
-const EcommerceProduct=require('./router/Ecommerce/Product')
 const app=express()
 app.use(cors())  
 app.use(bodyparser.json({extended :false}))
@@ -15,8 +13,7 @@ app.use(bodyparser.json({extended :false}))
 app.use('/user',userdata) 
 
 app.use('/purchase',purchase)
- app.use('/cart',EcommerceCart)
-app.use('/product',EcommerceProduct)
+
 
 mongoose.connect(process.env.MONGODB_URL)
 .then((res)=>{

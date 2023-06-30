@@ -3,8 +3,7 @@ const {createOrder}=require('../service/payment')
 const {error,generateToken}=require('../service/repete')
 exports.createOrderId=async(req,res)=>{
   try{
-            const order=await createOrder()        
-            await req.user.createOrder({orderId:order.id,status:'PENDING'})
+            const order=await createOrder(req.body.amount)  
             res.status(200).json({orderId:order.id,key_id:process.env.RAZ_KEY})
     
 }catch(err){
