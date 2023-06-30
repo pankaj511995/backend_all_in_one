@@ -10,6 +10,10 @@ const user=new mongoose.Schema({
         require:true,
         unique:true
     },
+    isPremium:{
+        type:Boolean,
+        default:false
+    },
     phone:String,
     password:String
     ,cart:Array

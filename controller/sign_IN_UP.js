@@ -27,12 +27,11 @@ exports.signinUser=async(req,res)=>{
         return res.status(400).json({message:'please fill correctly'})
      }
         const user=await  MUser.findOne({email:email})
-        console.log(user)
        await compair(res,password,user.password)
        if(req.body.admin===true){
-       return  res.status(200).json({token:generateToken(user._id,false,user.isPreamium)})
+       return  res.status(200).json({token:generateToken(user._id,false,user.isPremium)})
        }
-        res.status(200).json({token:generateToken(user._id,true,user.isPreamium)})
+        res.status(200).json({token:generateToken(user._id,true,user.isPremium)})
 
 }catch(e){
     
